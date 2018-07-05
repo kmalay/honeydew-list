@@ -6,8 +6,15 @@ import SigninForm from './components/SigninForm';
 import HoneydewLists from './components/HoneydewLists';
 import HoneydewList from './components/HoneydewList';
 
+const styles = {
+	root: {
+		marginTop: '70px',
+		width: '100%'
+	}
+}
+
 const routes = (
-	<div id="route-wrapper" style={{marginTop: '70px'}}>
+	<div id="route-wrapper" style={styles.root}>
 		<Route path="/" component={Home} exact />
 		<Route path="/signin" component={SigninForm} />
 		<Route path="/lists" component={RequireAuth(HoneydewLists)} />
