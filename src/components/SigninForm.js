@@ -4,46 +4,45 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { signinUser } from '../../actions/auth';
+import { loginUser } from '../actions/auth';
 
 class SigninForm extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      username: '',
+      email: '',
       password: ''
     };
   }
 
   onSubmit(e) {
     e.preventDefault();
-    // console.log('Signin clicked: ', this.state);
-    this.props.signinUser(this.state, this.props.history);
+    this.props.loginUser(this.state, this.props.history);
   }
 
   render() {
     return (
       <div className="row center-xs">
-        <Paper className="col-xs-6" elevation={2} style={styles.container}>
+        <Paper className="col-xs-10" elevation={2} style={styles.container}>
           <div style={{ marginTop: '30px' }}>
             <Typography variant="headline">
-              Please sign in with a username and password.
+              Please sign in with a email and password.
             </Typography>
           </div>
           <form>
             <div className="row center-xs">
               <TextField
-                className="col-xs-4"
-                label="Username"
+                className="col-xs-6"
+                label="Email"
                 margin="normal"
-                value={this.state.username}
-                onChange={e => this.setState({ username: e.target.value })}
+                value={this.state.email}
+                onChange={e => this.setState({ email: e.target.value })}
               />
             </div>
             <div className="row center-xs">
               <TextField
-                className="col-xs-4"
+                className="col-xs-6"
                 type="password"
                 label="Password"
                 margin="normal"
@@ -55,13 +54,13 @@ class SigninForm extends Component {
               {this.props.error}
             </div>
             <Button
-              label="Submit"
-              variant="outlined"
+              label="Sign in"
+              variant="contained"
               color="primary"
               style={styles.submit}
               onClick={this.onSubmit.bind(this)}
             >
-              Submit
+              Sign in
             </Button>
           </form>
         </Paper>
@@ -90,5 +89,5 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  signinUser
+  loginUser
 })(SigninForm);
