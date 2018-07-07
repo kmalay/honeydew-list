@@ -30,7 +30,7 @@ export const loginUser = ({ email, password }, history) => {
 	};
 };
 
-export const logoutUser = (history) => {
+export const logoutUser = () => {
 	return (dispatch) => {
 		firebase.auth().signOut()
 			.then(() => {

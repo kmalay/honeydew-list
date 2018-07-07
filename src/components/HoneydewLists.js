@@ -1,13 +1,17 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
-import ImageIcon from '@material-ui/icons/Image';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import { fetchLists } from '../actions/honeydew';
 
 const styles = theme => ({
@@ -22,32 +26,52 @@ class HoneydewLists extends Component {
     this.props.fetchLists();
   }
 
+  onItemClick(id) {
+    console.log('Item clicked: ', id);
+  }
+
   renderListItems() {
     return this.props.lists.map((list, i) => {
-      const { name, updatedAt } = list;
+      const { uid, name, icon, updatedAt } = list;
+
+      let avatarIcon;
+      switch(icon) {
+        case "shopping-basket": {
+          avatarIcon = (<ShoppingBasketIcon />);
+          break;
+        }
+        case "shopping-cart": {
+          avatarIcon = (<ShoppingCartIcon />);
+          break;
+        }
+        default: {
+          avatarIcon = (<AssignmentIcon />);
+          break;
+        }
+      }
+
+      const updated = moment(updatedAt).format('dddd, MMMM DD YYYY, h:mm:ss a');
 
       return (
-        <ListItem key={i}>
-          <Avatar>
-            <ImageIcon />
-          </Avatar>
-          <ListItemText primary={name} secondary={updatedAt} />
+        <ListItem key={i} onClick={() => { this.onItemClick(uid) }}>
+          <Avatar>{avatarIcon}</Avatar>
+          <ListItemText primary={name} secondary={updated} />
         </ListItem>
       )
     })
   }
 
   render() {
-    // const { classes } = this.props;
-
-    console.log('lists: ', this.props.lists);
+    // console.log('lists: ', this.props.lists);
 
     return (
       <div className="row">
         <div className="col-xs-12">
-          <List>
-            {this.renderListItems()}
-          </List>
+          <Paper elevation={1}>
+            <List>
+              {this.renderListItems()}
+            </List>
+          </Paper>
         </div>
       </div>
     )

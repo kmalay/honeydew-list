@@ -8,7 +8,6 @@ import HoneydewList from './components/HoneydewList';
 
 const styles = {
 	root: {
-		marginTop: '70px',
 		width: '100%'
 	}
 }

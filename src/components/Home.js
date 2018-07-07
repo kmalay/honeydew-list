@@ -27,7 +27,7 @@ class Home extends Component {
     const { classes } = this.props;
 
     return (
-      <div className="row center-xs">
+      <div className="row center-xs" style={{marginTop: '50px'}}>
         <header>
           <div className="col-xs-12">
             <img src={HoneydewImage} alt="" className={classes.logo} />
