@@ -16,8 +16,8 @@ const routes = (
 	<div id="route-wrapper" style={styles.root}>
 		<Route path="/" component={Home} exact />
 		<Route path="/signin" component={SigninForm} />
-		<Route path="/lists" component={RequireAuth(HoneydewLists)} />
-		<Route path="/lists/:id" component={RequireAuth(HoneydewList)} />
+		<Route path="/lists" component={RequireAuth(HoneydewLists)} exact />
+		<Route path="/lists/:id" component={RequireAuth(HoneydewList)} exact />
 	</div>
 );
 

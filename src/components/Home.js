@@ -19,6 +19,12 @@ const styles = theme => ({
 });
 
 class Home extends Component {
+  componentWillMount() {
+    if (this.props.authenticated) {
+      this.props.history.push('/lists');
+    }
+  }
+
   onSignin = () => {
     this.props.history.push('/signin');
   }
@@ -57,4 +63,10 @@ class Home extends Component {
   }
 }
 
-export default connect(null, null)(withStyles(styles)(Home));
+const mapStateToProps = state => {
+  return {
+    authenticated: state.auth.authenticated
+	};
+};
+
+export default connect(mapStateToProps)(withStyles(styles)(Home));

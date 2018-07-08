@@ -122,6 +122,7 @@ export const deleteList = (listId, history) => {
 
     firebase.database().ref().update(updates)
       .then(() => {
+        console.log('Delete list: ', listId);
         history.push('/lists');
       });
   };
