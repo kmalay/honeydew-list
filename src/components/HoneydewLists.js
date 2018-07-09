@@ -15,7 +15,6 @@ import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import AddIcon from '@material-ui/icons/AddBox';
-import DeleteIcon from '@material-ui/icons/Delete';
 import SignoutIcon from '@material-ui/icons/NotInterested';
 import { fetchLists } from '../actions/honeydew';
 import { setAppBarTitle } from '../actions';
@@ -42,15 +41,11 @@ class HoneydewLists extends Component {
   handleMenuClick = (event, value) => {
     switch(value) {
       case 1: {
-        console.log('Delete this List');
-        break;
-      }
-      case 2: {
         this.props.logoutUser();
         break;
       }
       default: {
-        console.log('Add New List');
+        this.props.history.push('/list/new');
         break;
       }
     }
@@ -110,13 +105,12 @@ class HoneydewLists extends Component {
 
         <div className="row">
           <BottomNavigation
-            value="4"
+            value="3"
             onChange={this.handleMenuClick.bind(this)}
             showLabels
             className={classes.nav}
           >
             <BottomNavigationAction label="New List" icon={<AddIcon />} />
-            <BottomNavigationAction label="Delete this List" icon={<DeleteIcon />} />
             <BottomNavigationAction label="Signout" icon={<SignoutIcon />} />
           </BottomNavigation>
         </div>

@@ -5,6 +5,7 @@ import Home from './components/Home';
 import SigninForm from './components/SigninForm';
 import HoneydewLists from './components/HoneydewLists';
 import HoneydewList from './components/HoneydewList';
+import HoneydewListForm from './components/HoneydewListForm';
 
 const styles = {
 	root: {
@@ -18,6 +19,7 @@ const routes = (
 		<Route path="/signin" component={SigninForm} />
 		<Route path="/lists" component={RequireAuth(HoneydewLists)} exact />
 		<Route path="/lists/:id" component={RequireAuth(HoneydewList)} exact />
+		<Route path="/list/new" component={RequireAuth(HoneydewListForm)} exact />
 	</div>
 );
 

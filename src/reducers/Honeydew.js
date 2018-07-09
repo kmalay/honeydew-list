@@ -2,7 +2,8 @@ import {
 	FETCH_LISTS,
 	FETCH_LIST,
 	RESET,
-	TOGGLE_ITEM_COMPLETED
+	TOGGLE_ITEM_COMPLETED,
+	CREATE_LIST_ITEM
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -15,7 +16,7 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
 	switch (action.type) {
     case FETCH_LISTS:
-      return { lists: action.payload };
+      return { ...state, lists: action.payload };
 		case FETCH_LIST:
 			return {
 				name: action.payload.name,
@@ -27,6 +28,8 @@ export default (state = INITIAL_STATE, action) => {
 			return { name, description, items };
 		case TOGGLE_ITEM_COMPLETED:
       return { ...state };
+		case CREATE_LIST_ITEM:
+			return { ...state };
 		default:
 			return state;
 	}

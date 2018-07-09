@@ -17,7 +17,7 @@ const styles = theme => ({
     zIndex: 1,
     position: 'relative',
     width: '100%',
-    height: '100%'
+    height: '100vh'
   },
 });
 

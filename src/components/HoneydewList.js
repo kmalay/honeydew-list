@@ -7,7 +7,7 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
-import AddItemIcon from '@material-ui/icons/AddCircleOutline';
+import AddItemIcon from '@material-ui/icons/Add';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -24,7 +24,8 @@ import SignoutIcon from '@material-ui/icons/NotInterested';
 import { setAppBarTitle } from '../actions';
 import { logoutUser } from '../actions/auth';
 import {
-  fetchList, createListItem, toggleItemCompleted
+  fetchList, createListItem, toggleItemCompleted,
+  clearCompleted, deleteList
 } from '../actions/honeydew';
 
 const styles = theme => ({
@@ -61,7 +62,7 @@ class HoneydewList extends Component {
   handleMenuClick = (event, value) => {
     switch(value) {
       case 1: {
-        console.log('Clear Completed');
+        this.props.clearCompleted(this.props.match.params.id);
         break;
       }
       case 2: {
@@ -73,7 +74,10 @@ class HoneydewList extends Component {
         break;
       }
       default: {
-        console.log('Delete List');
+        this.props.deleteList(
+          this.props.match.params.id,
+          this.props.history
+        );
         break;
       }
     }
@@ -95,6 +99,8 @@ class HoneydewList extends Component {
         this.props.match.params.id,
         newItem
       );
+
+      this.setState({ newItem: '' });
     }
   }
 
@@ -138,8 +144,8 @@ class HoneydewList extends Component {
           style={{position: 'fixed', left: 0, right: 0, zIndex: 10}}
         >
           <div className="col-xs-12">
-            <Paper elevation={1}>
-              <FormControl>
+            <Paper elevation={0}>
+              <FormControl margin="dense">
                 <InputLabel htmlFor="add-list-item">Add List Item</InputLabel>
                 <Input
                   id="add-list-item"
@@ -165,7 +171,7 @@ class HoneydewList extends Component {
 
         <div className="row" style={{marginBottom: '70px'}}>
           <div className="col-xs-12">
-            <Paper elevation={1} style={{marginTop: '50px'}}>
+            <Paper elevation={0} style={{marginTop: '45px'}}>
               <List>
                 {this.renderListItems()}
               </List>
@@ -203,5 +209,6 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, {
-  fetchList, createListItem, toggleItemCompleted, setAppBarTitle, logoutUser
+  fetchList, createListItem, toggleItemCompleted, setAppBarTitle,
+  logoutUser, clearCompleted, deleteList
 })(withStyles(styles, { withTheme: true })(HoneydewList));
