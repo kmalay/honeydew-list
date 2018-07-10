@@ -1,17 +1,10 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
-import AssignmentIcon from '@material-ui/icons/Assignment';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import AddIcon from '@material-ui/icons/AddBox';
@@ -19,6 +12,7 @@ import SignoutIcon from '@material-ui/icons/NotInterested';
 import { fetchLists } from '../actions/honeydew';
 import { setAppBarTitle } from '../actions';
 import { logoutUser } from '../actions/auth';
+import HoneydewListsItem from './HoneydewListsItem';
 
 const styles = theme => ({
   root: {
@@ -51,44 +45,15 @@ class HoneydewLists extends Component {
     }
   };
 
-  onItemClick(id) {
-    // console.log('Item clicked: ', id);
-    this.props.history.push(`/lists/${id}`);
-  }
-
   renderListItems() {
     return this.props.lists.map((list, i) => {
-      const { uid, name, icon, updatedAt } = list;
-
-      let avatarIcon;
-      switch(icon) {
-        case "shopping-basket": {
-          avatarIcon = (<ShoppingBasketIcon />);
-          break;
-        }
-        case "shopping-cart": {
-          avatarIcon = (<ShoppingCartIcon />);
-          break;
-        }
-        default: {
-          avatarIcon = (<AssignmentIcon />);
-          break;
-        }
-      }
-
-      const updated = moment(updatedAt).format('dddd, MMMM DD YYYY, h:mm:ss a');
-
       return (
-        <ListItem key={i} onClick={() => { this.onItemClick(uid) }}>
-          <Avatar>{avatarIcon}</Avatar>
-          <ListItemText primary={name} secondary={updated} />
-        </ListItem>
+        <HoneydewListsItem key={i} list={list} history={this.props.history} />
       )
     })
   }
 
   render() {
-    // console.log('lists: ', this.props.lists);
     const { classes } = this.props;
 
     return (
@@ -129,9 +94,7 @@ const mapStateToProps = state => {
 		return { ...val, uid };
 	});
 
-	return {
-    lists
-	};
+	return { lists };
 };
 
 export default connect(mapStateToProps, {
