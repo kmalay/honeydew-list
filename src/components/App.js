@@ -42,7 +42,6 @@ class App extends Component {
 
     window.addEventListener('online', () => {
       console.log('Device is online!');
-      this.syncResponses();
     });
 
     window.addEventListener('offline', () => {
@@ -65,7 +64,8 @@ class App extends Component {
 
   render() {
     const {
-      snackBarOpen, snackBarMessage, snackBarAutoHideDuration, classes, title
+      snackBarOpen, snackBarMessage, snackBarAutoHideDuration,
+      classes, title, updateSnackbarOpen
     } = this.props;
 
     return (
@@ -87,6 +87,14 @@ class App extends Component {
           autoHideDuration={snackBarAutoHideDuration}
           onRequestClose={this.handleSnackbarClose.bind(this)}
         />
+        <Snackbar
+         open={updateSnackbarOpen}
+         action="reload"
+         message={`New content is available.`}
+         autoHideDuration={0}
+         onActionTouchTap={this.handleSnackbarActionClick}
+         onRequestClose={this.handleSnackbarClose.bind(this)}
+        />
       </div>
     );
   }
@@ -99,7 +107,7 @@ App.propTypes = {
 
 const mapStateToProps = state => {
   const {
-    snackBarMessage, snackBarOpen, snackBarAutoHideDuration
+    snackBarMessage, snackBarOpen, snackBarAutoHideDuration, updateSnackbarOpen
   } = state.alert;
 
   const { title } = state.header;
@@ -107,7 +115,7 @@ const mapStateToProps = state => {
 
 	return {
     snackBarMessage, snackBarOpen, snackBarAutoHideDuration,
-    title, authenticated
+    title, authenticated, updateSnackbarOpen
 	};
 };
 

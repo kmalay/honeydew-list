@@ -1,3 +1,8 @@
+import firebase from 'firebase';
+import axios from 'axios';
+import store from './store';
+import { SHOW_SNACKBAR, SHOW_UPDATE_SNACKBAR } from './actions/types';
+
 // In production, we register a service worker to serve assets from local cache.
 
 // This lets the app load faster on subsequent visits in production, and gives
@@ -66,15 +71,60 @@ function registerValidSW(swUrl) {
               // It's the perfect time to display a "New content is
               // available; please refresh." message in your web app.
               console.log('New content is available; please refresh.');
+              store.dispatch({ type: SHOW_UPDATE_SNACKBAR });
             } else {
               // At this point, everything has been precached.
               // It's the perfect time to display a
               // "Content is cached for offline use." message.
               console.log('Content is cached for offline use.');
+              store.dispatch({
+                type: SHOW_SNACKBAR,
+                payload: { message: 'Content is cached for offline use.' }
+              });
             }
           }
         };
       };
+
+      const messaging = firebase.messaging();
+      messaging.useServiceWorker(registration);
+      messaging.requestPermission()
+        .then(() => {
+          // console.log('Notification permission granted.');
+          messaging.getToken()
+            .then(currentToken => {
+              if (currentToken) {
+                // console.log('Messaging token: ', currentToken);
+                const url = `https://iid.googleapis.com/iid/v1/${currentToken}/rel/topics/admin`;
+                const opts = { headers: { Authorization: `key=AIzaSyCAHLi71uZQramslnp6gr2GmtziMnTn1Q8` }};
+                axios.post(url, null, opts)
+                  .catch(err => { console.log('Error: ', err) });
+              } else {
+                console.log('No Instance ID token available. Request permission to generate one.');
+              }
+            })
+            .catch(function(err) {
+              console.log('An error occurred while retrieving token. ', err);
+            });
+
+            messaging.onTokenRefresh(function() {
+              messaging.getToken()
+                .then(refreshedToken => {
+                  console.log('Token refreshed.');
+                  const url = `https://iid.googleapis.com/iid/v1/${refreshedToken}/rel/topics/admin`;
+                  const opts = { headers: { Authorization: `key=AIzaSyCAHLi71uZQramslnp6gr2GmtziMnTn1Q8` }};
+                  axios.post(url, null, opts)
+                    .then(response => { console.log(response.data); })
+                    .catch(err => { console.log('Error: ', err) });
+                })
+                .catch(function(err) {
+                  console.log('Unable to retrieve refreshed token ', err);
+                });
+            });
+        })
+        .catch(err => {
+          console.log('Unable to get permission to notify.', err);
+        });
     })
     .catch(error => {
       console.error('Error during service worker registration:', error);

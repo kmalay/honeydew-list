@@ -7,6 +7,7 @@ export const AUTH_ERROR = 'AUTH_ERROR';
 export const SET_APPBAR_TITLE = 'SET_APPBAR_TITLE';
 export const SHOW_SNACKBAR = 'SHOW_SNACKBAR';
 export const CLOSE_SNACKBAR = 'CLOSE_SNACKBAR';
+export const SHOW_UPDATE_SNACKBAR = 'SHOW_UPDATE_SNACKBAR';
 
 // Honeydew action types
 export const FETCH_LISTS = 'FETCH_LISTS';

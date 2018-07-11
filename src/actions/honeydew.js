@@ -20,6 +20,7 @@ export const fetchLists = () => {
 				});
 
         // Maybe a push notification here in case a new list has been created
+        sendNotification('A Honeydew list has been updated.');
 			});
 	};
 };
@@ -124,5 +125,23 @@ export const deleteList = (listId, history) => {
       .then(() => {
         history.push('/lists');
       });
+  };
+};
+
+export const sendNotification = (message) => {
+  return (dispatch) => {
+    if (message && message !== '') {
+      const url = 'https://fcm.googleapis.com/fcm/send';
+
+      const opts = { headers: { Authorization: `key=AIzaSyBIilaovX73bemXKqegkmjV_6_J3T5PFcg` }};
+      const body = {
+        to : '/topics/admin',
+        priority : 'high',
+        data: { text: message, title: 'Honeydew' }
+      };
+      axios.post(url, body, opts)
+        // .then(response => { console.log(response.data); })
+        .catch(err => { console.log('Error: ', err) });
+    }
   };
 };
