@@ -11,6 +11,23 @@ import {
   RESET
 } from './types';
 
+const sendNotification = (message) => {
+  if (message && message !== '') {
+    console.log('sendNotification: ', message);
+    const url = 'https://fcm.googleapis.com/fcm/send';
+
+    const opts = { headers: { Authorization: `key=AIzaSyCAHLi71uZQramslnp6gr2GmtziMnTn1Q8` }};
+    const body = {
+      to : '/topics/admin',
+      priority : 'high',
+      data: { text: message, title: 'Honeydew' }
+    };
+    axios.post(url, body, opts)
+      // .then(response => { console.log(response.data); })
+      .catch(err => { console.log('Error: ', err) });
+  }
+};
+
 export const fetchLists = () => {
 	return (dispatch) => {
 		firebase.database().ref('/lists')
@@ -20,6 +37,7 @@ export const fetchLists = () => {
 					payload: snapshot.val()
 				});
 
+        console.log('sending notification');
         // Maybe a push notification here in case a new list has been created
         sendNotification('A Honeydew list has been updated.');
 			});
@@ -126,24 +144,5 @@ export const deleteList = (listId, history) => {
       .then(() => {
         history.push('/lists');
       });
-  };
-};
-
-export const sendNotification = (message) => {
-  return (dispatch) => {
-    if (message && message !== '') {
-      console.log('sendNotification: ', message);
-      const url = 'https://fcm.googleapis.com/fcm/send';
-
-      const opts = { headers: { Authorization: `key=AIzaSyCAHLi71uZQramslnp6gr2GmtziMnTn1Q8` }};
-      const body = {
-        to : '/topics/admin',
-        priority : 'high',
-        data: { text: message, title: 'Honeydew' }
-      };
-      axios.post(url, body, opts)
-        // .then(response => { console.log(response.data); })
-        .catch(err => { console.log('Error: ', err) });
-    }
   };
 };
