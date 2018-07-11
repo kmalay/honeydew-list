@@ -28,11 +28,6 @@ const sendNotification = (message) => {
   }
 };
 
-  // TODO:
-  // - Send notification if:
-  //   - New list is created: /lists child_added
-  //   - New list item created: /lists/${uid} child_added
-
 export const fetchLists = () => {
 	return (dispatch) => {
 		firebase.database().ref('/lists')
@@ -42,11 +37,6 @@ export const fetchLists = () => {
 					payload: snapshot.val()
 				});
 			});
-
-    // firebase.database().ref('/lists')
-    //   .on('child_added', snapshot => {
-    //     // sendNotification('A new list has been added.');
-    //   });
 	};
 };
 
@@ -67,6 +57,7 @@ export const createList = ({ name, description, icon }, history) => {
 			.then(() => {
 				dispatch({ type: CREATE_LIST });
 				history.push('/lists');
+        sendNotification(`A new list has been added: ${list.name}`);
 			});
 	};
 };
@@ -85,12 +76,6 @@ export const fetchList = (uid, history) => {
           });
         }
       });
-
-    // firebase.database().ref(`/lists/${uid}`)
-    //   .on('child_added', snapshot => {
-    //     const listName = snapshot.val().name;
-    //     sendNotification(`A new item was added to ${listName}.`);
-    //   });
   };
 };
 
@@ -111,6 +96,8 @@ export const createListItem = (uid, title) => {
         dispatch({
           type: CREATE_LIST_ITEM
         });
+
+        sendNotification(`A new item has been added.`);
       });
   };
 };
