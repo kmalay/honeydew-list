@@ -132,6 +132,7 @@ export const deleteList = (listId, history) => {
 export const sendNotification = (message) => {
   return (dispatch) => {
     if (message && message !== '') {
+      console.log('sendNotification: ', message);
       const url = 'https://fcm.googleapis.com/fcm/send';
 
       const opts = { headers: { Authorization: `key=AIzaSyCAHLi71uZQramslnp6gr2GmtziMnTn1Q8` }};
