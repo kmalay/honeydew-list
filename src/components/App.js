@@ -7,6 +7,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Snackbar from '@material-ui/core/Snackbar';
+import Button from '@material-ui/core/Button';
 import { closeSnackbar, showSnackbar } from '../actions';
 import { logoutUser } from '../actions/auth';
 import routes from '../routes';
@@ -85,15 +86,22 @@ class App extends Component {
           open={snackBarOpen}
           message={snackBarMessage}
           autoHideDuration={snackBarAutoHideDuration}
-          onRequestClose={this.handleSnackbarClose.bind(this)}
+          onClose={this.handleSnackbarClose.bind(this)}
         />
         <Snackbar
-         open={updateSnackbarOpen}
-         action="reload"
-         message={`New content is available.`}
-         autoHideDuration={0}
-         onActionTouchTap={this.handleSnackbarActionClick}
-         onRequestClose={this.handleSnackbarClose.bind(this)}
+          open={updateSnackbarOpen}
+          message={`New content is available.`}
+          autoHideDuration={0}
+          onClose={this.handleSnackbarClose.bind(this)}
+          action={[
+            <Button key="reload"
+              color="secondary"
+              size="small"
+              onClick={this.handleSnackbarActionClick}
+            >
+              RELOAD
+            </Button>
+          ]}
         />
       </div>
     );
