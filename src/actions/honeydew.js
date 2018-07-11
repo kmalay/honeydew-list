@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import firebase from 'firebase';
+import axios from 'axios';
 
 import {
   FETCH_LISTS,
@@ -133,7 +134,7 @@ export const sendNotification = (message) => {
     if (message && message !== '') {
       const url = 'https://fcm.googleapis.com/fcm/send';
 
-      const opts = { headers: { Authorization: `key=AIzaSyBIilaovX73bemXKqegkmjV_6_J3T5PFcg` }};
+      const opts = { headers: { Authorization: `key=AIzaSyCAHLi71uZQramslnp6gr2GmtziMnTn1Q8` }};
       const body = {
         to : '/topics/admin',
         priority : 'high',
