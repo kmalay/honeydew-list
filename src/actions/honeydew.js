@@ -28,6 +28,11 @@ const sendNotification = (message) => {
   }
 };
 
+  // TODO:
+  // - Send notification if:
+  //   - New list is created: /lists child_added
+  //   - New list item created: /lists/${uid} child_added
+
 export const fetchLists = () => {
 	return (dispatch) => {
 		firebase.database().ref('/lists')
@@ -36,11 +41,10 @@ export const fetchLists = () => {
 					type: FETCH_LISTS,
 					payload: snapshot.val()
 				});
-
-        console.log('sending notification');
-        // Maybe a push notification here in case a new list has been created
-        sendNotification('A Honeydew list has been updated.');
-			});
+			})
+      .on('child_added', snapshot => {
+        sendNotification('A new list has been added.');
+      });
 	};
 };
 
@@ -78,6 +82,10 @@ export const fetchList = (uid, history) => {
             payload: snapshot.val()
           });
         }
+      })
+      .on('child_added', snapshot => {
+        const listName = snapshot.val().name;
+        sendNotification(`A new item was added to ${listName}.`);
       });
   };
 };
