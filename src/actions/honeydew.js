@@ -41,7 +41,9 @@ export const fetchLists = () => {
 					type: FETCH_LISTS,
 					payload: snapshot.val()
 				});
-			})
+			});
+
+    firebase.database().ref('/lists')
       .on('child_added', snapshot => {
         sendNotification('A new list has been added.');
       });
@@ -82,7 +84,9 @@ export const fetchList = (uid, history) => {
             payload: snapshot.val()
           });
         }
-      })
+      });
+
+    firebase.database().ref(`/lists/${uid}`)
       .on('child_added', snapshot => {
         const listName = snapshot.val().name;
         sendNotification(`A new item was added to ${listName}.`);
