@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { loginUser } from '../actions/auth';
+import Animate from './Animate';
 
 class SigninForm extends Component {
   constructor(props) {
@@ -90,4 +91,4 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
   loginUser
-})(SigninForm);
+})(Animate(SigninForm));

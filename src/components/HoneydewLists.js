@@ -13,6 +13,7 @@ import { fetchLists } from '../actions/honeydew';
 import { setAppBarTitle } from '../actions';
 import { logoutUser } from '../actions/auth';
 import HoneydewListsItem from './HoneydewListsItem';
+import Animate from './Animate';
 
 const styles = theme => ({
   root: {
@@ -99,4 +100,4 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, {
   fetchLists, setAppBarTitle, logoutUser
-})(withStyles(styles, { withTheme: true })(HoneydewLists));
+})(withStyles(styles, { withTheme: true })(Animate(HoneydewLists)));

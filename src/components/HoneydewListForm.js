@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import green from '@material-ui/core/colors/green';
 import { createList } from '../actions/honeydew';
 import { setAppBarTitle } from '../actions';
+import Animate from './Animate';
 
 const styles = {
   defaultIcon: {
@@ -154,4 +155,4 @@ class HoneydewListForm extends Component {
 
 export default connect(null, {
   createList, setAppBarTitle
-})(withStyles(styles)(HoneydewListForm));
+})(withStyles(styles)(Animate(HoneydewListForm)));

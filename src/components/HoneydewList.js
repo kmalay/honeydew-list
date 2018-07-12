@@ -27,6 +27,7 @@ import {
   fetchList, createListItem, toggleItemCompleted,
   clearCompleted, deleteList
 } from '../actions/honeydew';
+import Animate from './Animate';
 
 const styles = theme => ({
   nav: {
@@ -211,4 +212,4 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps, {
   fetchList, createListItem, toggleItemCompleted, setAppBarTitle,
   logoutUser, clearCompleted, deleteList
-})(withStyles(styles, { withTheme: true })(HoneydewList));
+})(withStyles(styles, { withTheme: true })(Animate(HoneydewList)));

@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import HoneydewImage from '../assets/images/honeydew.png';
+import Animate from './Animate';
 
 const styles = theme => ({
   logo: {
@@ -69,4 +70,4 @@ const mapStateToProps = state => {
 	};
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(Home));
+export default connect(mapStateToProps)(withStyles(styles)(Animate(Home)));
