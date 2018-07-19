@@ -8,8 +8,8 @@ const Animate = Page => {
       <div className="page">
         <ReactCSSTransitionGroup
           transitionAppear={true}
-          transitionAppearTimeout={600}
-          transitionEnterTimeout={600}
+          transitionAppearTimeout={200}
+          transitionEnterTimeout={200}
           transitionLeaveTimeout={200}
           transitionName={props.history.action === 'PUSH' ? 'SlideIn' : 'SlideOut'}
         >
