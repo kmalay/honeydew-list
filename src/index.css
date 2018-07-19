@@ -18,7 +18,7 @@ body {
 .SlideIn-appear.SlideIn-appear-active {
   opacity: 1;
   transform: translateX(0);
-  transition: all 0.2s linear;
+  transition: all 0.1s linear;
   /* transition: all 0.6s linear; */
 }
 .SlideIn-enter {
@@ -29,7 +29,7 @@ body {
 .SlideIn-enter.SlideIn-enter-active {
   opacity: 1;
   transform: translateX(0);
-  transition: all 0.2s linear 0.2s;
+  transition: all 0.1s linear 0.2s;
   /* transition: all 0.2s linear 0.4s; */
 }
 .SlideIn-leave {
@@ -42,7 +42,7 @@ body {
   position: absolute;
   width: 100%;
   transform: translateX(-30px);
-  transition: all 0.2s linear;
+  transition: all 0.1s linear;
 }
 .SlideOut-appear {
   transform: translateX(-30px);
@@ -61,7 +61,7 @@ body {
   -moz-transform: translateX(0);
   -o-transform: translateX(0);
   -ms-transform: translateX(0);
-  transition: all 0.2s linear;
+  transition: all 0.1s linear;
   /* transition: all 0.6s linear; */
 }
 .SlideOut-enter {
@@ -80,7 +80,7 @@ body {
   -moz-transform: translateX(0);
   -o-transform: translateX(0);
   -ms-transform: translateX(0);
-  transition: all 0.2s linear 0.2s;
+  transition: all 0.1s linear 0.2s;
   /* transition: all 0.2s linear 0.4s; */
 }
 .SlideOut-leave {
@@ -101,5 +101,5 @@ body {
   -moz-transform: translateX(30px);
   -o-transform: translateX(30px);
   -ms-transform: translateX(30px);
-  transition: all 0.2s linear;
+  transition: all 0.1s linear;
 }

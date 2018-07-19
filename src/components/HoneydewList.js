@@ -31,7 +31,7 @@ import Animate from './Animate';
 
 const styles = theme => ({
   nav: {
-    position: 'fixed',
+    position: 'absolute',
     bottom: 0,
     left: 0,
     width: '100%'

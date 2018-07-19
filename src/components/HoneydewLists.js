@@ -21,7 +21,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper,
   },
   nav: {
-    position: 'fixed',
+    position: 'absolute',
     bottom: 0,
     width: '100%'
   }
