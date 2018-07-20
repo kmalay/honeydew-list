@@ -92,7 +92,11 @@ class HoneydewList extends Component {
     event.preventDefault();
   };
 
-  handleClickAddItem = () => {
+  handleClickAddItem = e => {
+    if (e) {
+      e.preventDefault();
+    }
+
     const { newItem } = this.state;
 
     if (newItem) {
@@ -144,7 +148,7 @@ class HoneydewList extends Component {
         <div className="row center-xs"
           style={{position: 'fixed', left: 0, right: 0, zIndex: 10}}
         >
-          <div className="col-xs-12">
+          <form className="col-xs-12" onSubmit={this.handleClickAddItem}>
             <Paper elevation={0}>
               <FormControl margin="dense">
                 <InputLabel htmlFor="add-list-item">Add List Item</InputLabel>
@@ -167,7 +171,7 @@ class HoneydewList extends Component {
                 />
               </FormControl>
             </Paper>
-          </div>
+          </form>
         </div>
 
         <div className="row" style={{marginBottom: '70px'}}>
@@ -188,7 +192,7 @@ class HoneydewList extends Component {
             className={classes.nav}
           >
             <BottomNavigationAction label="Delete List" icon={<DeleteIcon />} />
-            <BottomNavigationAction label="Clear Completed" icon={<ClearIcon />} />
+            <BottomNavigationAction label="Clear" icon={<ClearIcon />} />
             <BottomNavigationAction label="My Lists" icon={<ListsIcon />} />
             <BottomNavigationAction label="Signout" icon={<SignoutIcon />} />
           </BottomNavigation>
